@@ -71,6 +71,20 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
 @media(max-height:560px){.logo{max-height:16vh}}
 @media(max-width:640px){.logo{max-height:none}.time{font-size:min(30vw,26vh)}}
 @media(min-width:641px){.page{height:100vh;min-height:0}.card{min-height:0}}
+.panel{position:fixed;inset:0;background:#10182899;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.panel.open{display:flex}
+.sheet{background:#fff;border-radius:24px;padding:22px;width:min(100%,460px);box-shadow:0 12px 40px #00000040;text-align:left}
+.sheet h3{margin:0 0 14px;font-size:20px;color:var(--navy)}
+.prow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 6px;font-weight:800;color:var(--navy);font-size:17px}
+.step{display:flex;align-items:center;gap:10px}
+.step button{width:46px;height:46px;padding:0;font-size:24px;border-radius:12px}
+.step b{min-width:2.2em;text-align:center;font-size:30px;font-variant-numeric:tabular-nums}
+.step span{color:var(--muted);font-weight:700}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.presets button{padding:.45em .9em;border-radius:999px;font-size:15px;background:#edf3fb}
+.presets button.on{background:var(--navy);color:#fff}
+.phint{margin:14px 0;color:var(--muted);font-size:13px;line-height:1.55}
+.sheet .close{width:100%;background:var(--navy);color:#fff;font-size:17px}
 @media print{.controls,.hint{display:none}}
 </style>
 </head>
@@ -96,16 +110,28 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
     <button id="toggle" class="main">시작</button>
     <button id="plus">+1분</button>
     <button id="nextBtn">다음 레벨</button>
+    <button id="settings">시간 설정</button>
     <button id="sound">소리 켜짐</button>
     <button id="full">전체화면</button>
     <button id="reset" class="warn">처음으로</button>
   </div>
   <p class="hint">단축키: 스페이스바 시작/일시정지 · ← → 레벨 이동 · ↑ ↓ 시간 ±1분 · F 전체화면 · M 소리</p>
 </div>
+<div class="panel" id="panel">
+  <div class="sheet">
+    <h3>시간 설정</h3>
+    <div class="prow"><span>레벨 시간</span><div class="step"><button data-k="level" data-d="-1">−</button><b id="lvMin">12</b><span>분</span><button data-k="level" data-d="1">+</button></div></div>
+    <div class="presets" id="lvPresets"><button data-k="level" data-v="7">7분</button><button data-k="level" data-v="10">10분</button><button data-k="level" data-v="12">12분</button><button data-k="level" data-v="15">15분</button></div>
+    <div class="prow"><span>브레이크 시간</span><div class="step"><button data-k="break" data-d="-1">−</button><b id="brMin">10</b><span>분</span><button data-k="break" data-d="1">+</button></div></div>
+    <p class="phint">바꾸면 지금 진행 중인 레벨부터 적용돼요. 현재 레벨은 이미 흐른 시간을 빼고 남은 시간이 새 길이에 맞춰 바뀌어요. 예를 들어 12분 레벨을 2분 진행한 뒤 7분으로 바꾸면 5분이 남아요.</p>
+    <button class="close" id="closeP">닫기</button>
+  </div>
+</div>
 <script>
 (function(){
   var PAIRS=[[1,2],[2,4],[3,6],[4,8],[5,10],[6,12],[8,16],[10,20],[15,30],[20,40],[30,60],[40,80],[50,100],[60,120],[80,160],[100,200],[150,300],[200,400],[300,600],[400,800],[600,1200],[800,1600],[1000,2000],[1500,3000]];
   var LEVEL_MS=12*60000, BREAK_MS=10*60000;
+  var levelMin=12, breakMin=10;
   var NOTES={11:'이 레벨 종료 시 리바인 마감 · 리바인 없이 생존한 플레이어 보너스 300칩',23:'이 레벨 종료 시점이 5시간 타임캡 · 이후 신규 핸드 없음',24:'5시간 타임캡 이후 레벨 · 신규 핸드 없이 진행 중인 핸드만 마무리'};
   var seq=[];
   PAIRS.forEach(function(p,i){
@@ -178,6 +204,22 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
     render();
   }
   var resetArmed=false,resetTimer=null;
+  function setMin(kind,min){
+    min=Math.min(60,Math.max(1,Math.round(min)));
+    if(kind==='level')levelMin=min; else breakMin=min;
+    var ms=min*60000;
+    for(var i=s.idx;i<seq.length;i++){
+      if(seq[i].t!==kind)continue;
+      if(i===s.idx&&!s.finished){
+        var rem=s.running?Math.max(0,s.endAt-Date.now()):s.remaining;
+        var elapsed=seq[i].ms-rem;
+        seq[i].ms=ms; rem=Math.max(0,ms-elapsed);
+        s.remaining=rem; s.warned=rem<=60000;
+        if(s.running)s.endAt=Date.now()+rem;
+      }else{seq[i].ms=ms}
+    }
+    render();
+  }
   function reset(){
     var b=$('reset');
     if(!resetArmed){
@@ -185,6 +227,7 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
       resetTimer=setTimeout(function(){resetArmed=false;b.textContent='처음으로'},3000); return;
     }
     clearTimeout(resetTimer); resetArmed=false; b.textContent='처음으로';
+    seq.forEach(function(it){it.ms=(it.t==='level'?levelMin:breakMin)*60000});
     s.idx=0; s.finished=false; s.running=false; s.remaining=seq[0].ms; s.warned=false; unlock(); render();
   }
   function advance(){
@@ -252,6 +295,9 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
     $('toggle').disabled=s.finished;
     $('prev').disabled=(s.idx===0); $('nextBtn').disabled=(s.idx===LAST);
     $('sound').textContent=s.muted?'소리 꺼짐':'소리 켜짐';
+    $('settings').textContent='시간 설정 · 레벨 '+levelMin+'분';
+    $('lvMin').textContent=levelMin; $('brMin').textContent=breakMin;
+    Array.prototype.forEach.call(document.querySelectorAll('#lvPresets button'),function(b){b.className=(+b.getAttribute('data-v')===levelMin)?'on':''});
     document.title=(s.finished?'종료':$('time').textContent)+' · 라티파티 미니토너 타이머';
   }
   function fullscreen(){
@@ -268,6 +314,16 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
   $('sound').onclick=mute;
   $('full').onclick=fullscreen;
   $('reset').onclick=reset;
+  $('settings').onclick=function(){$('panel').className='panel open'};
+  $('closeP').onclick=function(){$('panel').className='panel'};
+  $('panel').addEventListener('click',function(e){
+    var t=e.target;
+    if(t===$('panel')){$('panel').className='panel';return}
+    var k=t.getAttribute&&t.getAttribute('data-k'); if(!k)return;
+    var d=t.getAttribute('data-d'), v=t.getAttribute('data-v');
+    var curv=k==='level'?levelMin:breakMin;
+    if(d!==null)setMin(k,curv+(+d)); else if(v!==null)setMin(k,+v);
+  });
   document.addEventListener('keydown',function(e){
     if(e.target&&e.target.tagName==='BUTTON'&&e.key===' ')return;
     if(e.key===' '){e.preventDefault();toggle()}
