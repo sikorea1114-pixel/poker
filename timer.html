@@ -3,9 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>라티파티 홀덤 타이머</title>
-<meta property="og:title" content="라티파티 홀덤 타이머">
+<title>라티파티 미니토너 타이머</title>
+<meta name="description" content="라티파티 홀덤 미니토너먼트 블라인드 레벨 타이머">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="라티파티">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://sikorea1114-pixel.github.io/poker/timer.html">
+<meta property="og:title" content="라티파티 미니토너 타이머">
 <meta property="og:description" content="라티파티 홀덤 미니토너먼트 블라인드 레벨 타이머">
+<meta property="og:image" content="https://sikorea1114-pixel.github.io/poker/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="라티파티 미니토너 타이머">
+<meta name="twitter:description" content="라티파티 홀덤 미니토너먼트 블라인드 레벨 타이머">
+<meta name="twitter:image" content="https://sikorea1114-pixel.github.io/poker/og-image.jpg">
 <style>
 :root{--navy:#182b49;--blue:#315b91;--mint:#8fe3b8;--yellow:#ffe27a;--pink:#f7a1c2;--sky:#8ccdf5;--ink:#202735;--muted:#667085}
 *{box-sizing:border-box}
@@ -240,7 +252,7 @@ body.m-end .chip{background:var(--yellow);color:#6b4b00}
     $('toggle').disabled=s.finished;
     $('prev').disabled=(s.idx===0); $('nextBtn').disabled=(s.idx===LAST);
     $('sound').textContent=s.muted?'소리 꺼짐':'소리 켜짐';
-    document.title=(s.finished?'종료':$('time').textContent)+' · 라티파티 홀덤 타이머';
+    document.title=(s.finished?'종료':$('time').textContent)+' · 라티파티 미니토너 타이머';
   }
   function fullscreen(){
     var d=document, e=d.documentElement;
