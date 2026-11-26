@@ -29,6 +29,8 @@ header{background:linear-gradient(135deg,#182b49,#315b91);color:#fff;padding:0;b
 header .eyebrow{font-size:12px;letter-spacing:.12em;opacity:.8;font-weight:700}
 h1{font-size:clamp(25px,4vw,36px);line-height:1.25;margin:8px 0 12px}
 header p{margin:0;color:#e7edf7}
+.when{display:inline-block;margin-top:14px !important;background:#ffffff22;border:1px solid #ffffff45;border-radius:999px;padding:6px 14px;color:#fff !important;font-size:15px}
+.when b{margin-right:8px;opacity:.8}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
 .stat{background:#ffffff18;border:1px solid #ffffff35;border-radius:12px;padding:12px}
 .stat b{display:block;font-size:20px}.stat span{font-size:12px;opacity:.85}
@@ -42,6 +44,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:10px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 th{background:#f2f5fa;color:#344054;font-weight:700}
 tr:last-child td{border-bottom:0}
+.brk td{background:#fff5df;color:#7a5200;text-align:center;font-size:13px}
 .note{background:var(--soft);border-left:4px solid var(--blue);padding:12px 14px;border-radius:8px;margin:12px 0}
 .warn{background:var(--gold);border-left:4px solid #d99a24;padding:12px 14px;border-radius:8px;margin:12px 0}
 .pill{display:inline-block;background:#e8eff9;color:#244c7d;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700}
@@ -60,6 +63,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
   <div class="eyebrow">BOARD GAME MEETUP · TOURNAMENT RULES</div>
   <h1>라티파티 홀덤<br>미니토너먼트</h1>
   <p>모두가 즐겁고 공정하게 플레이할 수 있도록 아래 운영 규칙을 확인해 주세요.</p>
+  <p class="when"><b>일시</b> 12월 12일(토) 오후 6시</p>
   <div class="stats">
     <div class="stat"><b>16명</b><span>참가 인원</span></div>
     <div class="stat"><b>300</b><span>시작 스택</span></div>
@@ -89,31 +93,34 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
 <section>
 <h2>2. 블라인드 구조</h2>
 <div class="scroll"><table>
-<thead><tr><th>레벨</th><th>블라인드 (SB / BB)</th><th>시작 시각</th><th>종료 시각</th></tr></thead>
+<thead><tr><th>레벨</th><th>블라인드 (SB / BB)</th><th>앤티</th><th>시작 시각</th><th>종료 시각</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>1 / 2</td><td>00:00</td><td>00:12</td></tr>
-<tr><td>2</td><td>2 / 4</td><td>00:12</td><td>00:24</td></tr>
-<tr><td>3</td><td>3 / 6</td><td>00:24</td><td>00:36</td></tr>
-<tr><td>4</td><td>4 / 8</td><td>00:36</td><td>00:48</td></tr>
-<tr><td>5</td><td>5 / 10</td><td>00:48</td><td>01:00</td></tr>
-<tr><td>6</td><td>6 / 12</td><td>01:00</td><td>01:12</td></tr>
-<tr><td>7</td><td>8 / 16</td><td>01:12</td><td>01:24</td></tr>
-<tr><td>8</td><td>10 / 20</td><td>01:24</td><td>01:36</td></tr>
-<tr><td>9</td><td>15 / 30</td><td>01:36</td><td>01:48</td></tr>
-<tr><td>10</td><td>20 / 40</td><td>01:48</td><td>02:00</td></tr>
-<tr><td>11</td><td>30 / 60</td><td>02:10</td><td>02:22</td></tr>
-<tr><td>12</td><td>40 / 80</td><td>02:22</td><td>02:34</td></tr>
-<tr><td>13</td><td>50 / 100</td><td>02:34</td><td>02:46</td></tr>
-<tr><td>14</td><td>60 / 120</td><td>02:46</td><td>02:58</td></tr>
-<tr><td>15</td><td>80 / 160</td><td>02:58</td><td>03:10</td></tr>
-<tr><td>16</td><td>100 / 200</td><td>03:10</td><td>03:22</td></tr>
-<tr><td>17</td><td>150 / 300</td><td>03:22</td><td>03:34</td></tr>
-<tr><td>18</td><td>200 / 400</td><td>03:34</td><td>03:46</td></tr>
-<tr><td>19</td><td>300 / 600</td><td>03:46</td><td>03:58</td></tr>
-<tr><td>20</td><td>400 / 800</td><td>04:08</td><td>04:20</td></tr>
-<tr><td>21</td><td>600 / 1,200</td><td>04:20</td><td>04:32</td></tr>
-<tr><td>22</td><td>800 / 1,600</td><td>04:32</td><td>04:44</td></tr>
-<tr><td>23</td><td>1,000 / 2,000</td><td>04:44</td><td>04:56</td></tr>
+<tr><td>1</td><td>1 / 2</td><td>2</td><td>00:00</td><td>00:12</td></tr>
+<tr><td>2</td><td>2 / 4</td><td>4</td><td>00:12</td><td>00:24</td></tr>
+<tr><td>3</td><td>3 / 6</td><td>6</td><td>00:24</td><td>00:36</td></tr>
+<tr><td>4</td><td>4 / 8</td><td>8</td><td>00:36</td><td>00:48</td></tr>
+<tr><td>5</td><td>5 / 10</td><td>10</td><td>00:48</td><td>01:00</td></tr>
+<tr><td>6</td><td>6 / 12</td><td>12</td><td>01:00</td><td>01:12</td></tr>
+<tr><td>7</td><td>8 / 16</td><td>16</td><td>01:12</td><td>01:24</td></tr>
+<tr><td>8</td><td>10 / 20</td><td>20</td><td>01:24</td><td>01:36</td></tr>
+<tr><td>9</td><td>15 / 30</td><td>30</td><td>01:36</td><td>01:48</td></tr>
+<tr><td>10</td><td>20 / 40</td><td>40</td><td>01:48</td><td>02:00</td></tr>
+<tr class="brk"><td colspan="5"><b>1차 브레이크</b> · 02:00 ~ 02:10 (10분) · 1칩 올림 교환</td></tr>
+<tr><td>11</td><td>30 / 60</td><td>60</td><td>02:10</td><td>02:22</td></tr>
+<tr><td>12</td><td>40 / 80</td><td>80</td><td>02:22</td><td>02:34</td></tr>
+<tr><td>13</td><td>50 / 100</td><td>100</td><td>02:34</td><td>02:46</td></tr>
+<tr><td>14</td><td>60 / 120</td><td>120</td><td>02:46</td><td>02:58</td></tr>
+<tr><td>15</td><td>80 / 160</td><td>160</td><td>02:58</td><td>03:10</td></tr>
+<tr><td>16</td><td>100 / 200</td><td>200</td><td>03:10</td><td>03:22</td></tr>
+<tr><td>17</td><td>150 / 300</td><td>300</td><td>03:22</td><td>03:34</td></tr>
+<tr><td>18</td><td>200 / 400</td><td>400</td><td>03:34</td><td>03:46</td></tr>
+<tr><td>19</td><td>300 / 600</td><td>600</td><td>03:46</td><td>03:58</td></tr>
+<tr class="brk"><td colspan="5"><b>2차 브레이크</b> · 03:58 ~ 04:08 (10분) · 스택 확인 및 파이널 준비</td></tr>
+<tr><td>20</td><td>400 / 800</td><td>800</td><td>04:08</td><td>04:20</td></tr>
+<tr><td>21</td><td>600 / 1,200</td><td>1,200</td><td>04:20</td><td>04:32</td></tr>
+<tr><td>22</td><td>800 / 1,600</td><td>1,600</td><td>04:32</td><td>04:44</td></tr>
+<tr><td>23</td><td>1,000 / 2,000</td><td>2,000</td><td>04:44</td><td>04:56</td></tr>
+<tr><td>24</td><td>1,500 / 3,000</td><td>3,000</td><td>04:56</td><td>05:08</td></tr>
 </tbody></table></div>
 <p class="small">표의 시각은 대회 시작을 00:00으로 한 경과 시간이며, 브레이크 10분씩 2회를 반영했습니다.</p>
 <div class="note"><b>앤티(Ante) 안내:</b> 이 대회는 <b>모든 블라인드 레벨에 앤티가 적용</b>됩니다. 앤티는 <b>빅블라인드 금액만큼 한 번 더 내는 방식</b>으로, 레벨이 오를 때마다 해당 레벨의 빅블라인드 금액에 맞춰 함께 올라갑니다. 예를 들어 1레벨(1 / 2)에서는 2칩, 11레벨(30 / 60)에서는 60칩입니다.</div>
@@ -138,7 +145,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
 <h3>1차 브레이크</h3>
 <p><span class="pill">10레벨 종료 후</span></p>
 <p><b>02:00 ~ 02:10 (10분)</b></p>
-<ul><li>휴식</li><li>1칩 회수 및 칩 레이스</li><li>칩 정리 후 11레벨 재개</li></ul>
+<ul><li>휴식</li><li>1칩 올림 교환</li><li>칩 정리 후 11레벨 재개</li></ul>
 </div>
 <div>
 <h3>2차 브레이크</h3>
@@ -147,7 +154,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
 <ul><li>휴식</li><li>스택 확인</li><li>테이블 및 파이널 진행 준비</li></ul>
 </div>
 </div>
-<div class="note"><b>1칩 마감:</b> 1칩을 단순히 버리거나 임의로 반올림하지 않습니다. 잔여 1칩은 테이블 전체를 대상으로 칩 레이스 방식으로 정리합니다. 칩 레이스에서 탈락한 플레이어도 최소 단위의 칩을 보유하도록 처리합니다.</div>
+<div class="note"><b>1칩 마감:</b> 1칩은 모두 올림 처리하여 바꿔줍니다.</div>
 </section>
 
 <section>
